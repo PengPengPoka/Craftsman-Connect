@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Craftman</string>
+    <string name="to_register">Tidak punya akun?</string>
+    <string name="register">Daftar</string>
 </resources>
