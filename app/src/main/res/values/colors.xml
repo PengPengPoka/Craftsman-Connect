@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="brown">#786858</color>
     <color name="gold">#E2B133</color>
+    <color name="brown_bar">#352C23</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.capstone.craftman.view.screen.login
+package com.capstone.craftman.view.screen.register
 
 import android.content.Context
 import android.widget.Toast
@@ -60,10 +60,10 @@ import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
-
+import com.capstone.craftman.view.screen.login.LoginViewModel
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
 ) {
@@ -73,27 +73,28 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollStateVertical),
-
-        ) {
-        LoginContent(navController = navController)
+    ) {
+        RegisterContent(navController = navController)
     }
 }
 
-
 @Composable
-fun LoginContent(
+fun RegisterContent(
     context: Context = LocalContext.current,
     viewModel: LoginViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
     ),
     navController: NavHostController,
-    ) {
-    var showDialog by remember { mutableStateOf(false) }
-    var showLoading by remember { mutableStateOf(false) }
-    var showPassword by remember { mutableStateOf(value = false) }
+) {
+
+    var nama by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var noTelp by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+
+    var showLoading by remember { mutableStateOf(false) }
+    var showPassword by remember { mutableStateOf(value = false) }
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
     val wasFocused = remember { isFocused }
@@ -110,6 +111,7 @@ fun LoginContent(
             .fillMaxHeight(),
         horizontalAlignment = Alignment.Start,
     ) {
+
         Text(
             modifier = Modifier
                 .padding(start = 36.dp, end = 16.dp, bottom = 16.dp),
@@ -125,7 +127,7 @@ fun LoginContent(
         Text(
             modifier = Modifier
                 .padding(start = 36.dp, end = 16.dp, bottom = 16.dp),
-            text = "Jembatan yang menghubungkan Anda \n dengan teknisi dan pekerja terampil",
+            text = "Daftarkan diri Anda sekarang dan temukan \nteknisi yang tepat untuk pekerjaan Anda. ",
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.regular)),
@@ -134,6 +136,35 @@ fun LoginContent(
                 textAlign = TextAlign.Justify,
             )
         )
+
+        /*Input Nama*/
+        Text(
+            modifier = Modifier
+                .padding(start = 48.dp, end = 36.dp),
+            text = "Nama",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.regular)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFF8A7B7B),
+            )
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            OutlinedTextInput(
+                input = nama,
+                placeholder = "Masukkan nama",
+                keyboardType = KeyboardType.Text,
+                onValueChange = { nama = it })
+        }
+
+        /*Input Email*/
 
         Text(
             modifier = Modifier
@@ -146,8 +177,6 @@ fun LoginContent(
                 color = Color(0xFF8A7B7B),
             )
         )
-
-        /*Input Email */
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -162,9 +191,38 @@ fun LoginContent(
                 onValueChange = { email = it })
         }
 
+        /*input No handphone*/
+
         Text(
             modifier = Modifier
-                .padding(top = 28.dp, start = 48.dp, end = 36.dp),
+                .padding(start = 48.dp, end = 36.dp),
+            text = "No Handphone",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.regular)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFF8A7B7B),
+            )
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            OutlinedTextInput(
+                input = noTelp,
+                placeholder = "Masukkan no handphone",
+                keyboardType = KeyboardType.Number,
+                onValueChange = { noTelp = it })
+        }
+
+        /*Input Password*/
+
+        Text(
+            modifier = Modifier
+                .padding(start = 48.dp, end = 36.dp),
             text = "Password",
             style = TextStyle(
                 fontSize = 16.sp,
@@ -174,7 +232,6 @@ fun LoginContent(
             )
         )
 
-        /*Input password*/
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -242,7 +299,9 @@ fun LoginContent(
                         return@ElevatedButton
                     }
 
-//                viewModel.login(email, password)
+                    navController.navigate(Screen.Login.route){
+                        popUpTo(0)
+                    }
 
                 },
                 colors = ButtonDefaults.elevatedButtonColors(
@@ -256,7 +315,7 @@ fun LoginContent(
                     )
                 } else {
                     Text(
-                        text = "LOGIN", style = TextStyle(
+                        text = "Register", style = TextStyle(
                             fontFamily = FontFamily(Font(R.font.semibold)),
                             fontWeight = FontWeight(400),
                             color = Color.White,
@@ -265,15 +324,17 @@ fun LoginContent(
                 }
             }
 
-            Text(text = "OR", style = TextStyle( fontFamily = FontFamily(Font(R.font.semibold))))
+            Text(text = "OR", style = TextStyle(fontFamily = FontFamily(Font(R.font.semibold))))
 
             Row {
-                Text(text = stringResource(id = R.string.to_register))
+                Text(text = stringResource(id = R.string.to_login))
 
                 ClickableText(
-                    text = AnnotatedString(stringResource(id = R.string.register)),
+                    text = AnnotatedString(stringResource(id = R.string.login)),
                     onClick = {
-                              navController.navigate(Screen.Register.route)
+                              navController.navigate(Screen.Login.route){
+                                  popUpTo(0)
+                              }
                     },
                     style = TextStyle(
                         color = colorResource(id = R.color.gold),

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.data.repository.CraftmanRepository
 import com.capstone.craftman.view.screen.login.LoginViewModel
+import com.capstone.craftman.view.screen.register.RegisterViewModel
 
 class ViewModelFactory(private val repository: CraftmanRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -15,6 +16,9 @@ class ViewModelFactory(private val repository: CraftmanRepository) : ViewModelPr
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+                RegisterViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
