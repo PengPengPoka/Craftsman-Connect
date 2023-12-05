@@ -57,6 +57,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
+import com.capstone.craftman.data.preference.UserModel
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
@@ -241,9 +242,7 @@ fun LoginContent(
                         Toast.makeText(context, "Password kurang dari 8", Toast.LENGTH_SHORT).show()
                         return@ElevatedButton
                     }
-
-//                viewModel.login(email, password)
-
+                    viewModel.saveSession(UserModel("admin","admin", "admin",true))
                 },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = colorResource(id = R.color.brown)

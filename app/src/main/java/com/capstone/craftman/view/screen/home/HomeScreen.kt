@@ -21,29 +21,33 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.fake.dummyService
 import com.capstone.craftman.ui.component.Search
 import com.capstone.craftman.ui.component.ServiceRow
+import com.capstone.craftman.ui.navigation.Screen
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    navHostController: NavHostController
 ){
- HomeContent()
+ HomeContent(navHostController = navHostController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController
 ){
     TopAppBar(
         title = {
         },
         actions = {
             IconButton(onClick = {
-
+                navHostController.navigate(Screen.Profile.route)
             }) {
                 Icon(
                     modifier = Modifier

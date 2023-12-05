@@ -1,6 +1,8 @@
 package com.capstone.craftman.data.repository
 
 import com.capstone.craftman.api.ApiService
+import com.capstone.craftman.data.fake.Chat
+import com.capstone.craftman.data.fake.FakeChat
 import com.capstone.craftman.data.preference.UserModel
 import com.capstone.craftman.data.preference.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +21,10 @@ class CraftmanRepository(
 
     suspend fun logout() {
         userPreference.logout()
+    }
+
+    fun getChat() : List<Chat>{
+        return FakeChat.dummyChat
     }
 
     companion object {

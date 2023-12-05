@@ -12,7 +12,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.ui.component.BottomBar
 import com.capstone.craftman.ui.navigation.Screen
+import com.capstone.craftman.view.screen.chat.ChatScreen
 import com.capstone.craftman.view.screen.home.HomeScreen
+import com.capstone.craftman.view.screen.profile.ProfileScreen
 
 @Composable
 fun CraftmanApp(
@@ -38,7 +40,13 @@ fun CraftmanApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(navHostController = navController)
+            }
+            composable(Screen.Profile.route) {
+                ProfileScreen(navHostController = navController)
+            }
+            composable(Screen.Chat.route) {
+                ChatScreen()
             }
         }
 

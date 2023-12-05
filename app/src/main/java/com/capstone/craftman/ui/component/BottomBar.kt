@@ -1,5 +1,7 @@
 package com.capstone.craftman.ui.component
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -15,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -29,7 +33,7 @@ fun BottomBar(
 ) {
     NavigationBar(
         modifier = modifier,
-        containerColor = colorResource(id = R.color.brown_bar)
+        containerColor = colorResource(id = R.color.brown_banner)
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -53,17 +57,20 @@ fun BottomBar(
         )
         navigationItems.map { item ->
             NavigationBarItem(
+                modifier = Modifier,
                 icon = {
                     Icon(
                         bitmap = item.icon,
                         contentDescription = item.title,
-                        tint = colorResource(id = R.color.brown_bar)
+                        tint = colorResource(id = R.color.brown_bar),
+                        modifier = Modifier.size(18.dp)
                     )
                 },
                 label = {
                     Text(
                         item.title, style = TextStyle(
                             fontFamily = FontFamily(Font(R.font.semibold)),
+                            fontSize = 12.sp,
                             color = Color.White,
                         )
                     )
