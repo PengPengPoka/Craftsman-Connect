@@ -97,5 +97,7 @@ dependencies {
 
     implementation ("io.coil-kt:coil-compose:2.4.0")
 
+    implementation ("com.google.accompanist:accompanist-insets:0.30.1")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

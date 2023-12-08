@@ -3,6 +3,8 @@ package com.capstone.craftman.data.repository
 import com.capstone.craftman.api.ApiService
 import com.capstone.craftman.data.fake.Chat
 import com.capstone.craftman.data.fake.FakeChat
+import com.capstone.craftman.data.fake.FakeHistory
+import com.capstone.craftman.data.fake.History
 import com.capstone.craftman.data.preference.UserModel
 import com.capstone.craftman.data.preference.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +27,10 @@ class CraftmanRepository(
 
     fun getChat() : List<Chat>{
         return FakeChat.dummyChat
+    }
+
+    fun getHistory() : List<History>{
+        return FakeHistory.dummyHistory
     }
 
     companion object {

@@ -66,7 +66,7 @@ fun ProfileScreen(
 }
 
 @Composable
-fun Top(navHostController: NavHostController,
+private fun Top(navHostController: NavHostController,
         context: Context = LocalContext.current,
         viewModel: ProfileViewModel = viewModel(
             factory = ViewModelFactory(Injection.provideRepository(context))
@@ -131,8 +131,8 @@ fun Top(navHostController: NavHostController,
                         fontFamily = FontFamily(
                             Font(R.font.semibold))))
 
-                    IconButton(onClick = { }) {
-                        Icon(imageVector = Icons.Filled.ArrowForwardIos, contentDescription = "Detail riwayay pesan",
+                    IconButton(onClick = { navHostController.navigate(Screen.HistoryInProfile.route) }) {
+                        Icon(imageVector = Icons.Filled.ArrowForwardIos, contentDescription = "Detail riwayat pesanan",
                             modifier = Modifier.size(14.dp))
                     }
                 }

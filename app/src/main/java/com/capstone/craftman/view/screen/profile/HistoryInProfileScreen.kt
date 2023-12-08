@@ -1,4 +1,4 @@
-package com.capstone.craftman.view.screen.history
+package com.capstone.craftman.view.screen.profile
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -32,22 +36,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.HistoryItem
+import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
 
 @Composable
-fun HistoryScreen(
+fun HistoryInProfileScreen(
     modifier: Modifier = Modifier,
-) {
-    HistoryContent()
+    navHostController: NavHostController,
+){
+    HistoryInProfileContent(navHostController = navHostController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryContent(
-    modifier: Modifier = Modifier
+fun HistoryInProfileContent(
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController,
 ) {
     Column {
         TopAppBar(
@@ -60,7 +68,15 @@ fun HistoryContent(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
-
+                    IconButton(
+                        onClick = { navHostController.navigate(Screen.Profile.route) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = "Pesanan",
@@ -72,6 +88,8 @@ fun HistoryContent(
                         color = Color.White,
                     )
                     Spacer(modifier = Modifier.weight(1f))
+                    IconButton(onClick = { /* Biarkan kosong agar text ditengah */ }) {
+                    }
                 }
             },
             modifier = Modifier
@@ -86,17 +104,18 @@ fun HistoryContent(
         )
 
 
-        Top()
+        Top(navHostController = navHostController)
     }
 }
 
+
 @Composable
-private fun Top(
-    context: Context = LocalContext.current,
-    viewModel: HistoryViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository(context))
-    )
-) {
+private fun Top(navHostController: NavHostController,
+                context: Context = LocalContext.current,
+                viewModel: ProfileViewModel = viewModel(
+                    factory = ViewModelFactory(Injection.provideRepository(context))
+                )
+){
     val historyList by viewModel.historyList.observeAsState(listOf())
 
     LaunchedEffect(true) {
@@ -106,15 +125,13 @@ private fun Top(
     Box(
         modifier = Modifier
     ) {
-        LazyColumn(
-            state = rememberLazyListState(),
-            modifier = Modifier.padding(top = 8.dp)
-        ) {
-            items(historyList.size) { index ->
-                val history = historyList[index]
-                HistoryItem(name = history.name, photoUrl = history.photoUrl, job = history.job, status = history.status)
+            LazyColumn(state = rememberLazyListState(),
+                modifier = Modifier.padding(top = 8.dp)) {
+                items(historyList.size) { index ->
+                    val history = historyList[index]
+                    HistoryItem(name = history.name, photoUrl = history.photoUrl, job = history.job, status =history.status)
+                }
             }
-        }
 
     }
 }
