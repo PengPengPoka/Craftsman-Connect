@@ -2,7 +2,9 @@ package com.capstone.craftman.data.repository
 
 import com.capstone.craftman.api.ApiService
 import com.capstone.craftman.data.fake.Chat
+import com.capstone.craftman.data.fake.Craftmans
 import com.capstone.craftman.data.fake.FakeChat
+import com.capstone.craftman.data.fake.FakeCraftman
 import com.capstone.craftman.data.fake.FakeHistory
 import com.capstone.craftman.data.fake.History
 import com.capstone.craftman.data.preference.UserModel
@@ -31,6 +33,10 @@ class CraftmanRepository(
 
     fun getHistory() : List<History>{
         return FakeHistory.dummyHistory
+    }
+
+    fun getCraftman() : List<Craftmans>{
+        return FakeCraftman.dummyCraftmans
     }
 
     companion object {

@@ -103,7 +103,6 @@ fun HistoryInProfileContent(
                 }
         )
 
-
         Top(navHostController = navHostController)
     }
 }

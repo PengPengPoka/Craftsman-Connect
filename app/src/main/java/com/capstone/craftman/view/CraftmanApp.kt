@@ -15,6 +15,7 @@ import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.screen.chat.ChatScreen
 import com.capstone.craftman.view.screen.history.HistoryScreen
 import com.capstone.craftman.view.screen.home.HomeScreen
+import com.capstone.craftman.view.screen.list_craftman.ListCraftmanScreen
 import com.capstone.craftman.view.screen.profile.HistoryInProfileScreen
 import com.capstone.craftman.view.screen.profile.ProfileScreen
 
@@ -30,7 +31,8 @@ fun CraftmanApp(
     Scaffold(
         bottomBar = {
             if (currentRoute != Screen.Profile.route &&
-                currentRoute != Screen.HistoryInProfile.route)
+                currentRoute != Screen.HistoryInProfile.route &&
+                currentRoute != Screen.ListCraftman.route)
              {
                 BottomBar(navController)
             }
@@ -56,6 +58,9 @@ fun CraftmanApp(
             }
             composable(Screen.HistoryInProfile.route) {
                 HistoryInProfileScreen(navHostController = navController)
+            }
+            composable(Screen.ListCraftman.route) {
+                ListCraftmanScreen(navHostController = navController)
             }
         }
 
