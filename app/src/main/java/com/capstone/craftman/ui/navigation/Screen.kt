@@ -7,7 +7,9 @@ sealed class Screen(val route: String) {
     object History : Screen("history")
     object HistoryInProfile : Screen("historyInProfile")
     object Profile : Screen("profile")
-
+    object DetailCraftman : Screen("listCraftman/{name}") {
+        fun createRoute(name: String) = "listCraftman/$name"
+    }
     object Login : Screen("login")
     object Register : Screen("register")
 }

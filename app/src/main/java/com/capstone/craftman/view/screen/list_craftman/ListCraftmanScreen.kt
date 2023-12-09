@@ -48,6 +48,7 @@ import com.capstone.craftman.view.ViewModelFactory
 fun ListCraftmanScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    navigateToDetail: (String) -> Unit,
 ){
     Column {
         TopAppBar(
@@ -97,7 +98,7 @@ fun ListCraftmanScreen(
                 }
         )
 
-        Top(navHostController = navHostController)
+        Top(navHostController = navHostController, navigateToDetail = navigateToDetail)
     }
 
 
@@ -109,7 +110,8 @@ private fun Top(navHostController: NavHostController,
                 context: Context = LocalContext.current,
                 viewModel: ListCraftmanViewModel = viewModel(
                     factory = ViewModelFactory(Injection.provideRepository(context))
-                )
+                ),
+                navigateToDetail: (String) -> Unit,
 ){
     val craftmansList by viewModel.CraftmanList.observeAsState(listOf())
 
@@ -124,7 +126,7 @@ private fun Top(navHostController: NavHostController,
             modifier = Modifier.padding(top = 8.dp)) {
             items(craftmansList.size) { index ->
                 val craftman = craftmansList[index]
-                ListCraftmanItem(name = craftman.name, photoUrl = craftman.photoUrl , job = craftman.job, location = craftman.location)
+                ListCraftmanItem(modifier = Modifier, craftman = craftman, navigateToDetail = navigateToDetail)
             }
         }
 

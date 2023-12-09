@@ -37,14 +37,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.capstone.craftman.R
+import com.capstone.craftman.data.fake.Craftmans
 
 @Composable
 fun ListCraftmanItem(
-    name: String,
-    @DrawableRes photoUrl: Int,
-    job: String,
-    location: String,
-    modifier: Modifier = Modifier
+    craftman: Craftmans,
+    navigateToDetail: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ){
     Card(
         elevation = CardDefaults.cardElevation(8.dp),
@@ -52,7 +51,7 @@ fun ListCraftmanItem(
         colors = CardDefaults.cardColors(
             containerColor = colorResource(id = R.color.cream)
         ),
-        modifier = Modifier
+        modifier = modifier
             .padding(24.dp)
             .fillMaxWidth()
             .clickable { /* Aksi saat diklik */ }
@@ -63,7 +62,7 @@ fun ListCraftmanItem(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Image(
-                painter = painterResource(id = photoUrl),
+                painter = painterResource(id = craftman.photoUrl),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -76,12 +75,12 @@ fun ListCraftmanItem(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = name,
+                    text = craftman.name,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Text(
-                    text = job,
+                    text = craftman.job,
                     fontWeight = FontWeight.Thin,
                 )
                 Row(
@@ -90,7 +89,7 @@ fun ListCraftmanItem(
                     Icon(modifier = Modifier.align(Alignment.CenterVertically),bitmap = ImageBitmap.imageResource(id = R.drawable.ic_location), contentDescription = "location")
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
-                        text = location,
+                        text = craftman.location,
                         fontWeight = FontWeight.Thin,
                     )
                 }
@@ -100,8 +99,8 @@ fun ListCraftmanItem(
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Button(
-                    onClick = { /* Lakukan sesuatu ketika icon ditekan */ },
-                    modifier = Modifier.wrapContentSize()
+                    onClick = { navigateToDetail(craftman.name) },
+                    modifier = modifier.wrapContentSize()
                         .padding(start = 8.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.brown_bar),
@@ -122,5 +121,8 @@ fun ListCraftmanItem(
 @Preview(showBackground = true)
 @Composable
 fun PreviewCraftmanitem(){
-    ListCraftmanItem(name = "Andi", photoUrl = R.drawable.ricky_harun, job = "Teknisi Ac", location = "Yogyakarta, Sleman")
+    ListCraftmanItem(craftman = Craftmans(  name = "John Doe",
+        photoUrl = R.drawable.ricky_harun, // Ganti dengan drawable yang tersedia
+        job = "Plumber",
+        location = "New York" , 3000, 5), navigateToDetail = {})
 }

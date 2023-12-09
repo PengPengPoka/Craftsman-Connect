@@ -5,6 +5,7 @@ import com.capstone.craftman.data.fake.Chat
 import com.capstone.craftman.data.fake.Craftmans
 import com.capstone.craftman.data.fake.FakeChat
 import com.capstone.craftman.data.fake.FakeCraftman
+import com.capstone.craftman.data.fake.FakeCraftman.dummyCraftmans
 import com.capstone.craftman.data.fake.FakeHistory
 import com.capstone.craftman.data.fake.History
 import com.capstone.craftman.data.preference.UserModel
@@ -39,6 +40,9 @@ class CraftmanRepository(
         return FakeCraftman.dummyCraftmans
     }
 
+    fun getCraftmanByName(name: String): Craftmans? {
+        return dummyCraftmans.find { it.name == name }
+    }
     companion object {
         @Volatile
         private var instance: CraftmanRepository? = null

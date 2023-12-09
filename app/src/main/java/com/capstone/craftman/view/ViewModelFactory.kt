@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.data.repository.CraftmanRepository
 import com.capstone.craftman.view.screen.chat.ChatViewModel
+import com.capstone.craftman.view.screen.detailcraftman.DetailViewModel
 import com.capstone.craftman.view.screen.history.HistoryViewModel
 import com.capstone.craftman.view.screen.list_craftman.ListCraftmanViewModel
 import com.capstone.craftman.view.screen.login.LoginViewModel
@@ -37,6 +38,9 @@ class ViewModelFactory(private val repository: CraftmanRepository) : ViewModelPr
             }
             modelClass.isAssignableFrom(ListCraftmanViewModel::class.java) -> {
                 ListCraftmanViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

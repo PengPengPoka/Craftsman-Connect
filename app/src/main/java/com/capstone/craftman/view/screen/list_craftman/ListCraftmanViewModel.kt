@@ -11,7 +11,6 @@ class ListCraftmanViewModel(private val repository: CraftmanRepository) : ViewMo
     val CraftmanList: LiveData<List<Craftmans>> = _CraftmanList
 
     fun fetchCraftman() {
-
         val CraftmanData = repository.getCraftman()
         _CraftmanList.value = CraftmanData
     }
