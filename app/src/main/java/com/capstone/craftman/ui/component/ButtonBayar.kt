@@ -27,7 +27,7 @@ fun ButtonBayar(
     modifier: Modifier = Modifier
 ) {
     Button(
-        onClick = { /* Lakukan sesuatu ketika icon ditekan */ },
+        onClick = onClick,
         modifier = Modifier
             .wrapContentSize()
             .padding(start = 8.dp),

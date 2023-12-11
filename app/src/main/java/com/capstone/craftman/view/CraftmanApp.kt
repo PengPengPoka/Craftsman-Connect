@@ -19,6 +19,7 @@ import com.capstone.craftman.view.screen.detailcraftman.DetailScreen
 import com.capstone.craftman.view.screen.history.HistoryScreen
 import com.capstone.craftman.view.screen.home.HomeScreen
 import com.capstone.craftman.view.screen.list_craftman.ListCraftmanScreen
+import com.capstone.craftman.view.screen.order.FeedbackScreen
 import com.capstone.craftman.view.screen.order.RincianPesananProsesScreen
 import com.capstone.craftman.view.screen.order.RincianPesananSelesaiScreen
 import com.capstone.craftman.view.screen.profile.HistoryInProfileScreen
@@ -38,6 +39,7 @@ fun CraftmanApp(
             if (currentRoute != Screen.Profile.route &&
                 currentRoute != Screen.HistoryInProfile.route &&
                 currentRoute != Screen.DetailCraftman.route &&
+                currentRoute != Screen.Feedback.route &&
                 currentRoute != Screen.PesananProses.route &&
                 currentRoute != Screen.PesananSelesai.route &&
                 currentRoute != Screen.ListCraftman.route)
@@ -85,6 +87,9 @@ fun CraftmanApp(
             }
             composable(Screen.PesananSelesai.route) {
                 RincianPesananSelesaiScreen(navController = navController, rating = 4)
+            }
+            composable(Screen.Feedback.route) {
+                FeedbackScreen(navController = navController)
             }
         }
 

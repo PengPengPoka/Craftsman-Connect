@@ -127,7 +127,7 @@ fun RincianPesananProsesScreen(
             contentAlignment = Alignment.Center
 
         ) {
-            ButtonBayar(price = 300000, onClick = {})
+            ButtonBayar(price = 300000, onClick = { navController.navigate(Screen.Feedback.route)})
         }
     }
 }
@@ -184,7 +184,7 @@ private fun TopBarr(
 
 
 @Composable
-fun RatingBar(rating: Int) {
+private fun RatingBar(rating: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(top = 8.dp)
@@ -193,7 +193,7 @@ fun RatingBar(rating: Int) {
             Icon(
                 painter = painterResource(R.drawable.ic_filled_star),
                 contentDescription = "Filled Star",
-                tint = Color.Yellow,
+                tint = colorResource(id = R.color.gold),
                 modifier = Modifier.size(24.dp)
             )
         }
