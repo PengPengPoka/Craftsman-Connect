@@ -11,9 +11,10 @@ List Done :
 6. List Profile Screen
 7. List Craftman Screen
 8. Detail Craftman Screen
+9. Pesanan Proses Screen
+10. Pesanan Selesai Screen
 
 
 List Not Done : 
 1. Chat Feature Screen
-2. Detail pesanan Screen
-3. Give Feedback Screen
+2. Give Feedback Screen
