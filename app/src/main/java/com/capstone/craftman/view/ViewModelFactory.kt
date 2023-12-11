@@ -10,6 +10,7 @@ import com.capstone.craftman.view.screen.detailcraftman.DetailViewModel
 import com.capstone.craftman.view.screen.history.HistoryViewModel
 import com.capstone.craftman.view.screen.list_craftman.ListCraftmanViewModel
 import com.capstone.craftman.view.screen.login.LoginViewModel
+import com.capstone.craftman.view.screen.order.PesananViewModel
 import com.capstone.craftman.view.screen.profile.ProfileViewModel
 import com.capstone.craftman.view.screen.register.RegisterViewModel
 
@@ -41,6 +42,9 @@ class ViewModelFactory(private val repository: CraftmanRepository) : ViewModelPr
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(PesananViewModel::class.java) -> {
+                PesananViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

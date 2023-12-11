@@ -29,24 +29,30 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.HistoryItem
+import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
 
 @Composable
 fun HistoryScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
 ) {
-    HistoryContent()
+    HistoryContent(navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryContent(
+    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -85,13 +91,13 @@ fun HistoryContent(
                 }
         )
 
-
-        Top()
+        Top(navController = navController)
     }
 }
 
 @Composable
 private fun Top(
+    navController: NavHostController,
     context: Context = LocalContext.current,
     viewModel: HistoryViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
@@ -112,9 +118,31 @@ private fun Top(
         ) {
             items(historyList.size) { index ->
                 val history = historyList[index]
-                HistoryItem(name = history.name, photoUrl = history.photoUrl, job = history.job, status = history.status)
+                val screenDestination = when (history.status) {
+                    "selesai" -> Screen.PesananSelesai // Tentukan screen tujuan jika selesai
+                    "proses" -> Screen.PesananProses // Tentukan screen tujuan jika proses
+                    else -> null
+                }
+
+                HistoryItem(
+                    name = history.name,
+                    photoUrl = history.photoUrl,
+                    job = history.job,
+                    status = history.status,
+                    onClick = {
+                        screenDestination?.let { destination ->
+                            navController.navigate(destination.route)
+                        }
+                    }
+                )
             }
         }
 
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewHistory(){
+    HistoryScreen(navController =  rememberNavController())
 }

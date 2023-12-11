@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,16 +34,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.capstone.craftman.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryItem(
     name: String,
     @DrawableRes photoUrl: Int,
     job: String,
     status: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         elevation = CardDefaults.cardElevation(8.dp),
+        onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -105,5 +109,5 @@ fun HistoryItem(
 @Preview(showBackground = true)
 @Composable
 fun PreviewButton(){
-    HistoryItem(name = "Andi", photoUrl = R.drawable.ricky_harun, job = "Tukang ac", status = "selesai")
+    HistoryItem(name = "Andi", photoUrl = R.drawable.ricky_harun, job = "Tukang ac", status = "selesai", onClick = {})
 }

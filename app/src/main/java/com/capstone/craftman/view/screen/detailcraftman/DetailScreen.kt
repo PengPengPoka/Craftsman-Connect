@@ -192,7 +192,9 @@ private fun containerOne(
 
         ) {
             ButtonOrder(price = craftman.price, onClick = {
-
+                navController.navigate(Screen.PesananProses.route){
+                    popUpTo(Screen.Home.route)
+                }
             })
         }
     }

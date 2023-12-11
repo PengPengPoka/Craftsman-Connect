@@ -19,6 +19,8 @@ import com.capstone.craftman.view.screen.detailcraftman.DetailScreen
 import com.capstone.craftman.view.screen.history.HistoryScreen
 import com.capstone.craftman.view.screen.home.HomeScreen
 import com.capstone.craftman.view.screen.list_craftman.ListCraftmanScreen
+import com.capstone.craftman.view.screen.order.RincianPesananProsesScreen
+import com.capstone.craftman.view.screen.order.RincianPesananSelesaiScreen
 import com.capstone.craftman.view.screen.profile.HistoryInProfileScreen
 import com.capstone.craftman.view.screen.profile.ProfileScreen
 
@@ -36,6 +38,8 @@ fun CraftmanApp(
             if (currentRoute != Screen.Profile.route &&
                 currentRoute != Screen.HistoryInProfile.route &&
                 currentRoute != Screen.DetailCraftman.route &&
+                currentRoute != Screen.PesananProses.route &&
+                currentRoute != Screen.PesananSelesai.route &&
                 currentRoute != Screen.ListCraftman.route)
              {
                 BottomBar(navController)
@@ -58,14 +62,14 @@ fun CraftmanApp(
                 ChatScreen()
             }
             composable(Screen.History.route) {
-                HistoryScreen()
+                HistoryScreen(navController = navController)
             }
             composable(Screen.HistoryInProfile.route) {
                 HistoryInProfileScreen(navHostController = navController)
             }
             composable(Screen.ListCraftman.route) {
                 ListCraftmanScreen(navHostController = navController,
-                    navigateToDetail = {name ->
+                    navigateToDetail = { name ->
                         navController.navigate(Screen.DetailCraftman.createRoute(name))
                     })
             }
@@ -74,6 +78,13 @@ fun CraftmanApp(
             ){
                 val name = it.arguments?.getString("name") ?: " "
                 DetailScreen(navHostController = navController, name = name)
+            }
+
+            composable(Screen.PesananProses.route) {
+                RincianPesananProsesScreen(navController = navController)
+            }
+            composable(Screen.PesananSelesai.route) {
+                RincianPesananSelesaiScreen(navController = navController, rating = 4)
             }
         }
 

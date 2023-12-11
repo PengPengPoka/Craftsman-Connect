@@ -94,8 +94,6 @@ fun RegisterContent(
     var email by remember { mutableStateOf("") }
     var noTelp by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
-
     var showLoading by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(value = false) }
     val focusRequester = remember { FocusRequester() }

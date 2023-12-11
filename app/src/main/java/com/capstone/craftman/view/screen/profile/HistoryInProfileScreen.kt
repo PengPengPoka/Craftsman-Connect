@@ -47,7 +47,7 @@ import com.capstone.craftman.view.ViewModelFactory
 fun HistoryInProfileScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-){
+) {
     HistoryInProfileContent(navHostController = navHostController)
 }
 
@@ -103,18 +103,19 @@ fun HistoryInProfileContent(
                 }
         )
 
-        Top(navHostController = navHostController)
+        Top(navController = navHostController)
     }
 }
 
 
 @Composable
-private fun Top(navHostController: NavHostController,
-                context: Context = LocalContext.current,
-                viewModel: ProfileViewModel = viewModel(
-                    factory = ViewModelFactory(Injection.provideRepository(context))
-                )
-){
+private fun Top(
+    navController: NavHostController,
+    context: Context = LocalContext.current,
+    viewModel: ProfileViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository(context))
+    )
+) {
     val historyList by viewModel.historyList.observeAsState(listOf())
 
     LaunchedEffect(true) {
@@ -124,13 +125,31 @@ private fun Top(navHostController: NavHostController,
     Box(
         modifier = Modifier
     ) {
-            LazyColumn(state = rememberLazyListState(),
-                modifier = Modifier.padding(top = 8.dp)) {
-                items(historyList.size) { index ->
-                    val history = historyList[index]
-                    HistoryItem(name = history.name, photoUrl = history.photoUrl, job = history.job, status =history.status)
+        LazyColumn(
+            state = rememberLazyListState(),
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            items(historyList.size) { index ->
+                val history = historyList[index]
+                val screenDestination = when (history.status) {
+                    "selesai" -> Screen.PesananSelesai // Tentukan screen tujuan jika selesai
+                    "proses" -> Screen.PesananProses // Tentukan screen tujuan jika proses
+                    else -> null
                 }
+
+                HistoryItem(
+                    name = history.name,
+                    photoUrl = history.photoUrl,
+                    job = history.job,
+                    status = history.status,
+                    onClick = {
+                        screenDestination?.let { destination ->
+                            navController.navigate(destination.route)
+                        }
+                    }
+                )
             }
+        }
 
     }
 }

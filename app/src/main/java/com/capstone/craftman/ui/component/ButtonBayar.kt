@@ -1,14 +1,13 @@
 package com.capstone.craftman.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -17,19 +16,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.capstone.craftman.R
 
 @Composable
-fun ButtonOrder(
-    modifier: Modifier = Modifier,
-    price : Int,
+fun ButtonBayar(
+    price: Int,
     onClick : () -> Unit,
-
-){
+    modifier: Modifier = Modifier
+) {
     Button(
-        onClick = onClick ,
+        onClick = { /* Lakukan sesuatu ketika icon ditekan */ },
         modifier = Modifier
             .wrapContentSize()
             .padding(start = 8.dp),
@@ -37,12 +35,11 @@ fun ButtonOrder(
             containerColor = colorResource(id = R.color.brown_bar),
         )
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Pesan dan panggil sekarang",
+                text = "Total biaya : ",
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.semibold)),
                     color = Color.White
@@ -50,8 +47,9 @@ fun ButtonOrder(
             )
 
             Text(
+                modifier = Modifier.padding(start = 25.dp),
                 textAlign = TextAlign.Center,
-                text = stringResource(R.string.price , price),
+                text = stringResource(R.string.price, price),
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.semibold)),
                     color = Color.White
@@ -59,4 +57,11 @@ fun ButtonOrder(
             )
         }
     }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewButtonBayar() {
+    ButtonBayar(5000, onClick = {})
 }
