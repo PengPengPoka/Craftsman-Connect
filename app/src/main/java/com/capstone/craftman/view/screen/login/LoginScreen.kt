@@ -2,6 +2,7 @@ package com.capstone.craftman.view.screen.login
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -63,6 +66,7 @@ import com.capstone.craftman.data.preference.UserModel
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
+import com.google.accompanist.insets.LocalWindowInsets
 
 
 @Composable
@@ -71,12 +75,18 @@ fun LoginScreen(
     navController: NavHostController,
 ) {
     val scrollStateVertical = rememberScrollState()
+    val focusManager = LocalFocusManager.current
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollStateVertical)
-            .navigationBarsPadding().imePadding(),
+            .navigationBarsPadding().imePadding()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            },
 
         ) {
         LoginContent(navController = navController)
@@ -101,6 +111,7 @@ fun LoginContent(
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
     val wasFocused = remember { isFocused }
+
 
     LaunchedEffect(true) {
         if (wasFocused) {

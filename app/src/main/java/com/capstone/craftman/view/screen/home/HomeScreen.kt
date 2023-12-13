@@ -1,8 +1,15 @@
 package com.capstone.craftman.view.screen.home
 
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -10,8 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -25,13 +34,31 @@ import com.capstone.craftman.data.fake.dummyService
 import com.capstone.craftman.ui.component.Search
 import com.capstone.craftman.ui.component.ServiceRow
 import com.capstone.craftman.ui.navigation.Screen
+import com.capstone.craftman.view.screen.login.LoginContent
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController
 ){
- HomeContent(navHostController = navHostController)
+    val scrollStateVertical = rememberScrollState()
+    val focusManager = LocalFocusManager.current
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollStateVertical)
+            .navigationBarsPadding().imePadding()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            },
+
+        ) {
+        HomeContent(navHostController = navHostController)
+    }
+
 
 }
 
