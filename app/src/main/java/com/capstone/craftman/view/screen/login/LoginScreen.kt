@@ -66,7 +66,6 @@ import com.capstone.craftman.data.preference.UserModel
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
-import com.google.accompanist.insets.LocalWindowInsets
 
 
 @Composable

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.capstone.craftman.ui.component.BottomBar
 import com.capstone.craftman.ui.navigation.Screen
+import com.capstone.craftman.view.screen.chat.ChatMessageScreen
 import com.capstone.craftman.view.screen.chat.ChatScreen
 import com.capstone.craftman.view.screen.detailcraftman.DetailScreen
 import com.capstone.craftman.view.screen.history.HistoryScreen
@@ -42,6 +43,7 @@ fun CraftmanApp(
                 currentRoute != Screen.Feedback.route &&
                 currentRoute != Screen.PesananProses.route &&
                 currentRoute != Screen.PesananSelesai.route &&
+                currentRoute != Screen.ChatMessage.route &&
                 currentRoute != Screen.ListCraftman.route)
              {
                 BottomBar(navController)
@@ -61,7 +63,7 @@ fun CraftmanApp(
                 ProfileScreen(navHostController = navController)
             }
             composable(Screen.Chat.route) {
-                ChatScreen()
+                ChatScreen(navController = navController)
             }
             composable(Screen.History.route) {
                 HistoryScreen(navController = navController)
@@ -90,6 +92,11 @@ fun CraftmanApp(
             }
             composable(Screen.Feedback.route) {
                 FeedbackScreen(navController = navController)
+            }
+            composable(Screen.ChatMessage.route) {
+                ChatMessageScreen(navController = navController,   navigateBack ={
+                    navController.navigateUp()
+                })
             }
         }
 

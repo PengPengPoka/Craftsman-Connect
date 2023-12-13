@@ -1,7 +1,7 @@
 # Craftsman-Connect
 Capstone Bangkit 2023
 
-List Done :  
+All List Done :  
 
 1. Login Screen
 2. Register Screen
@@ -14,7 +14,4 @@ List Done :
 9. Pesanan Proses Screen
 10. Pesanan Selesai Screen
 11. Give Feedback Screen
-
-
-List Not Done : 
-1. Chat Feature Screen
+12. Chat Feature Screen

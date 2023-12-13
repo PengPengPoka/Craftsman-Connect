@@ -32,15 +32,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.ChatItem
+import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ){
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -49,12 +53,13 @@ fun ChatScreen(
         title = {},
         navigationIcon = {},
     )
-    ChatContent()
+    ChatContent(navController = navController)
 }
 
 @Composable
 fun ChatContent(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     context: Context = LocalContext.current,
     viewModel: ChatViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
@@ -99,7 +104,7 @@ fun ChatContent(
                 modifier = Modifier.padding(top = 8.dp)) {
                 items(chatList.size) { index ->
                     val chat = chatList[index]
-                    ChatItem(name = chat.name, photoUrl = chat.image)
+                    ChatItem(name = chat.name, photoUrl = chat.image, onClick = {navController.navigate(Screen.ChatMessage.route)})
                 }
             }
         }
@@ -111,5 +116,5 @@ fun ChatContent(
 @Preview(showBackground = true)
 @Composable
 fun ChatPreview(){
-    ChatScreen()
+    ChatScreen(navController = rememberNavController())
 }

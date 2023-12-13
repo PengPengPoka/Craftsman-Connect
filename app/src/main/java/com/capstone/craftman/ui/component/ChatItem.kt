@@ -22,12 +22,13 @@ import androidx.compose.ui.unit.dp
 fun ChatItem(
     name: String,
     @DrawableRes photoUrl: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ){
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.clickable {}
+        modifier = modifier.clickable {onClick.invoke()}
     ) {
         Image(
             painter = painterResource(id = photoUrl),

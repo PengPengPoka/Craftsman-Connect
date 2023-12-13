@@ -65,7 +65,6 @@ import com.capstone.craftman.ui.navigation.Screen
 @Composable
 fun FeedbackScreen(
     navController: NavHostController,
-    modifier: Modifier = Modifier
 ) {
     var rating by remember { mutableIntStateOf(0) }
     var feedback by remember { mutableStateOf("") }

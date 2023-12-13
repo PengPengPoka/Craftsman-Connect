@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -34,11 +33,9 @@ import com.capstone.craftman.data.fake.dummyService
 import com.capstone.craftman.ui.component.Search
 import com.capstone.craftman.ui.component.ServiceRow
 import com.capstone.craftman.ui.navigation.Screen
-import com.capstone.craftman.view.screen.login.LoginContent
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
     navHostController: NavHostController
 ){
     val scrollStateVertical = rememberScrollState()
