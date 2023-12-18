@@ -35,7 +35,7 @@ fun OutlinedTextInput(
         singleLine = true,
         shape = RoundedCornerShape(size = 12.dp),
         modifier = Modifier
-            .padding(start = 36.dp, end = 36.dp)
+//            .padding(start = 36.dp, end = 36.dp)
             .focusRequester(focusRequester)
             .onFocusChanged {
                 isFocused = it.isFocused
