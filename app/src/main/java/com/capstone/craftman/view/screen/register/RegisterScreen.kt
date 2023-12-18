@@ -53,15 +53,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
+import com.capstone.craftman.view.screen.login.LoginScreen
 import com.capstone.craftman.view.screen.login.LoginViewModel
 
 @Composable
@@ -75,7 +79,8 @@ fun RegisterScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollStateVertical)
-            .navigationBarsPadding().imePadding(),
+            .navigationBarsPadding()
+            .imePadding(),
     ) {
         RegisterContent(navController = navController)
     }
@@ -113,175 +118,170 @@ fun RegisterContent(
         horizontalAlignment = Alignment.Start,
     ) {
 
-        Text(
-            modifier = Modifier
-                .padding(start = 36.dp, end = 16.dp, bottom = 16.dp),
-            text = "Selamat datang di Craftman Connect",
-            style = TextStyle(
-                fontSize = 28.sp,
-                fontFamily = FontFamily(Font(R.font.semibold)),
-                fontWeight = FontWeight(600),
-                color = Color(0xFF000000),
-            )
-        )
-
-        Text(
-            modifier = Modifier
-                .padding(start = 36.dp, end = 16.dp, bottom = 16.dp),
-            text = "Daftarkan diri Anda sekarang dan temukan \nteknisi yang tepat untuk pekerjaan Anda. ",
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily(Font(R.font.regular)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFF000000),
-                textAlign = TextAlign.Justify,
-            )
-        )
-
-        /*Input Nama*/
-        Text(
-            modifier = Modifier
-                .padding(start = 48.dp, end = 36.dp),
-            text = "Nama",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.regular)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFF8A7B7B),
-            )
-        )
-
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
+                .padding(start = 36.dp, end = 36.dp)
+                .fillMaxHeight()
+                .fillMaxWidth(),
+
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+
         ) {
-            OutlinedTextInput(
-                input = nama,
-                placeholder = "Masukkan nama",
-                keyboardType = KeyboardType.Text,
-                onValueChange = { nama = it })
-        }
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
 
-        /*Input Email*/
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 16.dp),
+                    text = "Selamat datang di\nCraftman Connect",
+                    style = TextStyle(
+                        fontSize = 28.sp,
+                        fontFamily = FontFamily(Font(R.font.semibold)),
+                        fontWeight = FontWeight(600),
+                        color = Color(0xFF000000),
+                    )
+                )
 
-        Text(
-            modifier = Modifier
-                .padding(start = 48.dp, end = 36.dp),
-            text = "Email",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.regular)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFF8A7B7B),
-            )
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            OutlinedTextInput(
-                input = email,
-                placeholder = "Masukkan email",
-                keyboardType = KeyboardType.Email,
-                onValueChange = { email = it })
-        }
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 16.dp),
+                    text = "Daftarkan diri Anda sekarang dan temukan \nteknisi yang tepat untuk pekerjaan Anda. ",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF000000),
+                        textAlign = TextAlign.Justify,
+                    )
+                )
 
-        /*input No handphone*/
+                /*Input Nama*/
+                Text(
+                    textAlign = TextAlign.Start,
+                    text = "Nama",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF8A7B7B),
+                    )
+                )
 
-        Text(
-            modifier = Modifier
-                .padding(start = 48.dp, end = 36.dp),
-            text = "No Handphone",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.regular)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFF8A7B7B),
-            )
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            OutlinedTextInput(
-                input = noTelp,
-                placeholder = "Masukkan no handphone",
-                keyboardType = KeyboardType.Number,
-                onValueChange = { noTelp = it })
-        }
+                OutlinedTextInput(
+                    input = nama,
+                    placeholder = "Masukkan nama",
+                    keyboardType = KeyboardType.Text,
+                    onValueChange = { nama = it })
 
-        /*Input Password*/
+                /*Input Email*/
 
-        Text(
-            modifier = Modifier
-                .padding(start = 48.dp, end = 36.dp),
-            text = "Password",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.regular)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFF8A7B7B),
-            )
-        )
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    textAlign = TextAlign.Start,
+                    text = "Email",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF8A7B7B),
+                    )
+                )
+                OutlinedTextInput(
+                    input = email,
+                    placeholder = "Masukkan email",
+                    keyboardType = KeyboardType.Email,
+                    onValueChange = { email = it })
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            OutlinedTextField(
-                value = password,
-                placeholder = { Text(text = "Password") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                singleLine = true,
-                onValueChange = { newInput ->
-                    password = newInput
-                },
-                shape = RoundedCornerShape(size = 12.dp),
-                modifier = Modifier
-                    .padding(start = 36.dp, end = 36.dp)
-                    .focusRequester(focusRequester)
-                    .onFocusChanged { //restore keyboard while rotation
-                        isFocused = it.isFocused
-                    },
-                visualTransformation = if (showPassword) {
 
-                    VisualTransformation.None
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    textAlign = TextAlign.Start,
+                    text = "No Handphone",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF8A7B7B),
+                    )
+                )
+                OutlinedTextInput(
+                    input = noTelp,
+                    placeholder = "Masukkan no handphone",
+                    keyboardType = KeyboardType.Number,
+                    onValueChange = { noTelp = it })
 
-                } else {
-                    PasswordVisualTransformation()
-                },
-                trailingIcon = {
-                    if (showPassword) {
-                        IconButton(onClick = { showPassword = false }) {
-                            Icon(
-                                imageVector = Icons.Filled.Visibility,
-                                contentDescription = "hide_password"
-                            )
+
+                /*Input Password*/
+
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    textAlign = TextAlign.Start,
+                    text = "Password",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF8A7B7B),
+                    )
+                )
+
+                Column(
+                    modifier = Modifier,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    OutlinedTextField(
+                        value = password,
+                        placeholder = { Text(text = "Password") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        singleLine = true,
+                        onValueChange = { newInput ->
+                            password = newInput
+                        },
+                        shape = RoundedCornerShape(size = 12.dp),
+                        modifier = Modifier
+                            .focusRequester(focusRequester)
+                            .onFocusChanged { //restore keyboard while rotation
+                                isFocused = it.isFocused
+                            },
+                        visualTransformation = if (showPassword) {
+
+                            VisualTransformation.None
+
+                        } else {
+                            PasswordVisualTransformation()
+                        },
+                        trailingIcon = {
+                            if (showPassword) {
+                                IconButton(onClick = { showPassword = false }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Visibility,
+                                        contentDescription = "hide_password"
+                                    )
+                                }
+                            } else {
+                                IconButton(
+                                    onClick = { showPassword = true }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.VisibilityOff,
+                                        contentDescription = "hide_password"
+                                    )
+                                }
+                            }
                         }
-                    } else {
-                        IconButton(
-                            onClick = { showPassword = true }) {
-                            Icon(
-                                imageVector = Icons.Filled.VisibilityOff,
-                                contentDescription = "hide_password"
-                            )
-                        }
-                    }
+                    )
                 }
-            )
+
+            }
         }
+
+
+
+
+
+
+
 
         Column(
             modifier = Modifier
@@ -300,7 +300,7 @@ fun RegisterContent(
                         return@ElevatedButton
                     }
 
-                    navController.navigate(Screen.Login.route){
+                    navController.navigate(Screen.Login.route) {
                         popUpTo(0)
                     }
 
@@ -333,9 +333,9 @@ fun RegisterContent(
                 ClickableText(
                     text = AnnotatedString(stringResource(id = R.string.login)),
                     onClick = {
-                              navController.navigate(Screen.Login.route){
-                                  popUpTo(0)
-                              }
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(0)
+                        }
                     },
                     style = TextStyle(
                         color = colorResource(id = R.color.gold),
@@ -348,4 +348,10 @@ fun RegisterContent(
         }
 
     }
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_2)
+@Composable
+fun PreviewRegister() {
+    RegisterScreen(navController = rememberNavController())
 }
