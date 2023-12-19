@@ -32,7 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -63,11 +62,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
-import com.capstone.craftman.data.preference.UserModel
-import com.capstone.craftman.helper.UiState
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
+import com.capstone.craftman.view.screen.login.LoginScreen
+import com.capstone.craftman.view.screen.login.LoginViewModel
 
 @Composable
 fun RegisterScreen(
@@ -90,7 +89,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterContent(
     context: Context = LocalContext.current,
-    viewModel: RegisterViewModel = viewModel(
+    viewModel: LoginViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
     ),
     navController: NavHostController,
@@ -105,27 +104,6 @@ fun RegisterContent(
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
     val wasFocused = remember { isFocused }
-
-
-    val uploadState by viewModel.upload.observeAsState()
-
-    // Menanggapi perubahan nilai upload
-    when (val uiState = uploadState) {
-        is UiState.Loading -> {
-
-        }
-        is UiState.Success -> {
-            navController.navigate(Screen.Login.route){
-                popUpTo(0)
-            }
-
-        }
-        is UiState.Error -> {
-
-        }
-
-        else -> {}
-    }
 
     LaunchedEffect(true) {
         if (wasFocused) {
@@ -298,6 +276,13 @@ fun RegisterContent(
             }
         }
 
+
+
+
+
+
+
+
         Column(
             modifier = Modifier
                 .padding(top = 24.dp)
@@ -314,7 +299,10 @@ fun RegisterContent(
                         Toast.makeText(context, "Password kurang dari 8", Toast.LENGTH_SHORT).show()
                         return@ElevatedButton
                     }
-                    viewModel.uploadData(nama, email, noTelp, password)
+
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(0)
+                    }
 
                 },
                 colors = ButtonDefaults.elevatedButtonColors(
