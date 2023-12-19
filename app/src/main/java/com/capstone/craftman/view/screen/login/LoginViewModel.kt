@@ -14,4 +14,6 @@ class LoginViewModel(private val repository: CraftmanRepository): ViewModel() {
         }
     }
 
+    fun login(email: String, password: String) = repository.login(email, password)
+
 }

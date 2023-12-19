@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -89,7 +90,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterContent(
     context: Context = LocalContext.current,
-    viewModel: LoginViewModel = viewModel(
+    viewModel: RegisterViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
     ),
     navController: NavHostController,
@@ -277,12 +278,6 @@ fun RegisterContent(
         }
 
 
-
-
-
-
-
-
         Column(
             modifier = Modifier
                 .padding(top = 24.dp)
@@ -298,6 +293,8 @@ fun RegisterContent(
                     if (password.length < 8) {
                         Toast.makeText(context, "Password kurang dari 8", Toast.LENGTH_SHORT).show()
                         return@ElevatedButton
+                    }else{
+                        viewModel.register(nama, email, noTelp, password).observe(th)
                     }
 
                     navController.navigate(Screen.Login.route) {

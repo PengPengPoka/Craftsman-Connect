@@ -100,4 +100,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-insets:0.30.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
 }
