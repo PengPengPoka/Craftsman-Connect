@@ -12,7 +12,7 @@ object Injection {
     fun provideRepository(context: Context): CraftmanRepository {
         val pref = UserPreference.getInstance(context.dataStore)
         val user = runBlocking { pref.getSession().first() }
-//        val apiService = ApiConfig.getApiService()
-        return CraftmanRepository.getInstance(pref)
+        val apiService = ApiConfig.getApiService(user.token)
+        return CraftmanRepository.getInstance(pref, apiService)
     }
 }

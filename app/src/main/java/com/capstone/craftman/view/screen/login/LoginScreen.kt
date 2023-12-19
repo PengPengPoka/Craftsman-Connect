@@ -33,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -66,6 +67,7 @@ import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.data.preference.UserModel
+import com.capstone.craftman.helper.UiState
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
@@ -104,7 +106,7 @@ fun LoginContent(
     ),
     navController: NavHostController,
     ) {
-    var showDialog by remember { mutableStateOf(false) }
+
     var showLoading by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(value = false) }
     var email by remember { mutableStateOf("") }
@@ -113,6 +115,33 @@ fun LoginContent(
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
     val wasFocused = remember { isFocused }
+
+    val uploadState by viewModel.upload.observeAsState()
+
+    when (val uiState = uploadState) {
+        is UiState.Loading -> {
+            showLoading = true
+        }
+
+        is UiState.Success -> {
+
+            viewModel.saveSession(
+                UserModel(
+                    email = email,
+                    name = "Dona Yona",
+                    token = uiState.data.token,
+                    isLogin = true
+                )
+            )
+        }
+
+        is UiState.Error -> {
+            showLoading = false
+            Toast.makeText(context, "Password atau Email salah", Toast.LENGTH_SHORT).show()
+        }
+
+        else -> {}
+    }
 
 
     LaunchedEffect(true) {
@@ -198,7 +227,6 @@ fun LoginContent(
                 Column(
                     modifier = Modifier,
                     verticalArrangement = Arrangement.Center,
-//                horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     OutlinedTextField(
                         value = password,
@@ -210,7 +238,6 @@ fun LoginContent(
                         },
                         shape = RoundedCornerShape(size = 12.dp),
                         modifier = Modifier
-//                        .padding(start = 36.dp, end = 36.dp)
                             .focusRequester(focusRequester)
                             .onFocusChanged { //restore keyboard while rotation
                                 isFocused = it.isFocused
@@ -260,7 +287,7 @@ fun LoginContent(
                         Toast.makeText(context, "Password kurang dari 8", Toast.LENGTH_SHORT).show()
                         return@ElevatedButton
                     }
-                    viewModel.saveSession(UserModel("admin","admin", "admin",true))
+                    viewModel.login(email,password)
                 },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = colorResource(id = R.color.brown)
