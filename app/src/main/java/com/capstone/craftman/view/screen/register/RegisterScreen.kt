@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -62,11 +63,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
+import com.capstone.craftman.helper.UiState
 import com.capstone.craftman.ui.component.OutlinedTextInput
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
-import com.capstone.craftman.view.screen.login.LoginScreen
-import com.capstone.craftman.view.screen.login.LoginViewModel
 
 @Composable
 fun RegisterScreen(
@@ -89,7 +89,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterContent(
     context: Context = LocalContext.current,
-    viewModel: LoginViewModel = viewModel(
+    viewModel: RegisterViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
     ),
     navController: NavHostController,
@@ -104,6 +104,27 @@ fun RegisterContent(
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
     val wasFocused = remember { isFocused }
+
+    val uploadState by viewModel.upload.observeAsState()
+
+    when (uploadState) {
+        is UiState.Loading -> {
+            showLoading = true
+        }
+
+        is UiState.Success -> {
+            navController.navigate(Screen.Login.route){
+                popUpTo(0)
+            }
+        }
+
+        is UiState.Error -> {
+            showLoading = false
+            Toast.makeText(context, "Password atau Email salah", Toast.LENGTH_SHORT).show()
+        }
+
+        else -> {}
+    }
 
     LaunchedEffect(true) {
         if (wasFocused) {
@@ -300,9 +321,7 @@ fun RegisterContent(
                         return@ElevatedButton
                     }
 
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(0)
-                    }
+                   viewModel.register(nama, email, noTelp, password)
 
                 },
                 colors = ButtonDefaults.elevatedButtonColors(
