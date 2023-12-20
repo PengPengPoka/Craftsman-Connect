@@ -8,20 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.capstone.craftman.data.fake.Craftmans
 import com.capstone.craftman.data.repository.CraftmanRepository
 import com.capstone.craftman.helper.UiState
+import com.capstone.craftman.response.CraftmanList
 import com.capstone.craftman.response.CraftmanResponse
 import kotlinx.coroutines.launch
 
 class ListCraftmanViewModel(private val repository: CraftmanRepository) : ViewModel() {
-    private val _CraftmanList = MutableLiveData<List<Craftmans>>()
-    val CraftmanList: LiveData<List<Craftmans>> = _CraftmanList
-
     private val _TukangList = MutableLiveData<UiState<CraftmanResponse>>()
     val TukangList: LiveData<UiState<CraftmanResponse>> = _TukangList
-    fun fetchCraftman() {
-        val CraftmanData = repository.getCraftman()
-        _CraftmanList.value = CraftmanData
-    }
 
+    init {
+        getTukang()
+    }
     fun getTukang(){
         viewModelScope.launch {
             repository.getTukang().asFlow().collect(){
@@ -29,4 +26,5 @@ class ListCraftmanViewModel(private val repository: CraftmanRepository) : ViewMo
             }
         }
     }
+
 }

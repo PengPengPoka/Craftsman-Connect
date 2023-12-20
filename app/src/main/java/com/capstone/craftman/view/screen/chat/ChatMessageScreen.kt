@@ -192,14 +192,14 @@ private fun TopBarr(
                     onClick = { navHostController.navigate(Screen.Home.route) }
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.ricky_harun),
+                        painter = painterResource(R.drawable.profile_picture),
                         contentDescription = "Back",
                     )
                 }
 
                 Text(
                     modifier = Modifier.padding(start = 16.dp),
-                    text = "Ricky",
+                    text = "Santi Design",
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.semibold))

@@ -116,7 +116,6 @@ private fun Top(navHostController: NavHostController,
                 ),
                 navigateToDetail: (String, String, String) -> Unit,
 ){
-    val craftmansList by viewModel.CraftmanList.observeAsState(listOf())
     val tukangList by viewModel.TukangList.observeAsState()
 
     LaunchedEffect(true) {
