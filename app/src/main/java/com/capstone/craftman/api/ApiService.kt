@@ -1,10 +1,10 @@
 package com.capstone.craftman.api
 
+import com.capstone.craftman.response.CraftmanResponse
 import com.capstone.craftman.response.LoginRequest
 import com.capstone.craftman.response.LoginResponse
 import com.capstone.craftman.response.RegisterRequest
 import com.capstone.craftman.response.RegisterResponse
-import com.capstone.craftman.response.CraftmanResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
