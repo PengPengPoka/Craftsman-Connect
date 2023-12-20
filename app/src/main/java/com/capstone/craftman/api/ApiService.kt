@@ -4,7 +4,9 @@ import com.capstone.craftman.response.LoginRequest
 import com.capstone.craftman.response.LoginResponse
 import com.capstone.craftman.response.RegisterRequest
 import com.capstone.craftman.response.RegisterResponse
+import com.capstone.craftman.response.CraftmanResponse
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -13,4 +15,7 @@ interface ApiService {
 
     @POST("login")
     suspend fun login(@Body requestBody: LoginRequest): LoginResponse
+
+    @GET("tukang")
+    suspend fun getCraftman(): CraftmanResponse
 }

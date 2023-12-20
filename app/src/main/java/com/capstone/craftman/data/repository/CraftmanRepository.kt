@@ -18,6 +18,7 @@ import com.capstone.craftman.response.LoginRequest
 import com.capstone.craftman.response.LoginResponse
 import com.capstone.craftman.response.RegisterRequest
 import com.capstone.craftman.response.RegisterResponse
+import com.capstone.craftman.response.CraftmanResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -69,6 +70,21 @@ class CraftmanRepository(
         } catch (e: Exception) {
             emit(UiState.Error("Error : ${e.message.toString()}"))
         }
+    }
+
+    suspend fun getTukang() = liveData {
+        emit(UiState.Loading)
+        try {
+            val successResponse = apiService.getCraftman()
+            emit(UiState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, CraftmanResponse::class.java)
+            emit(UiState.Error(errorResponse.toString()))
+        } catch (e: Exception) {
+            emit(UiState.Error("Error : ${e.message.toString()}"))
+        }
+
     }
 
     fun getChat() : List<Chat>{

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -39,6 +40,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.capstone.craftman.R
 import com.capstone.craftman.data.injection.Injection
+import com.capstone.craftman.helper.UiState
+import com.capstone.craftman.response.CraftmanResponse
 import com.capstone.craftman.ui.component.ListCraftmanItem
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.ViewModelFactory
@@ -114,9 +117,10 @@ private fun Top(navHostController: NavHostController,
                 navigateToDetail: (String) -> Unit,
 ){
     val craftmansList by viewModel.CraftmanList.observeAsState(listOf())
+    val tukangList by viewModel.TukangList.observeAsState()
 
     LaunchedEffect(true) {
-        viewModel.fetchCraftman()
+        viewModel.getTukang()
     }
 
     Box(
@@ -124,11 +128,29 @@ private fun Top(navHostController: NavHostController,
     ) {
         LazyColumn(state = rememberLazyListState(),
             modifier = Modifier.padding(top = 8.dp)) {
-            items(craftmansList.size) { index ->
-                val craftman = craftmansList[index]
-                ListCraftmanItem(modifier = Modifier, craftman = craftman, navigateToDetail = navigateToDetail)
-            }
+
+            when(tukangList){
+                is UiState.Loading -> {
+                    // Display loading indicator if needed
+                }
+
+                is UiState.Success -> {
+                    val tukang =
+                        (tukangList as UiState.Success<CraftmanResponse>).data.craftmanList
+                    items(tukang) { craftman ->
+                        ListCraftmanItem(modifier = Modifier, craftman = craftman, navigateToDetail = navigateToDetail)
+                    }
+                }
+                is UiState.Error -> {
+                    // Handle error state if needed
+                }
+
+                else -> {}
+
+                }
+
         }
 
     }
 }
+
