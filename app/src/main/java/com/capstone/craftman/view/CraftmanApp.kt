@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navOptions
 import com.capstone.craftman.ui.component.BottomBar
 import com.capstone.craftman.ui.navigation.Screen
 import com.capstone.craftman.view.screen.chat.ChatMessageScreen
@@ -39,7 +40,7 @@ fun CraftmanApp(
         bottomBar = {
             if (currentRoute != Screen.Profile.route &&
                 currentRoute != Screen.HistoryInProfile.route &&
-                currentRoute != Screen.DetailCraftman.route &&
+                currentRoute != "${Screen.DetailCraftman.route}/{name}/{layanan}/{deskripsi}" &&
                 currentRoute != Screen.Feedback.route &&
                 currentRoute != Screen.PesananProses.route &&
                 currentRoute != Screen.PesananSelesai.route &&
@@ -72,16 +73,24 @@ fun CraftmanApp(
                 HistoryInProfileScreen(navHostController = navController)
             }
             composable(Screen.ListCraftman.route) {
-                ListCraftmanScreen(navHostController = navController,
-                    navigateToDetail = { name ->
-                        navController.navigate(Screen.DetailCraftman.createRoute(name))
-                    })
+                ListCraftmanScreen(navHostController = navController) { name, layanan, deskripsi ->
+                    navController.navigate(
+                        "${Screen.DetailCraftman.route}/$name/$layanan/$deskripsi"
+                    )
+                }
             }
-            composable(route = Screen.DetailCraftman.route,
-                arguments = listOf(navArgument("name") {type = NavType.StringType})
-            ){
+            composable(
+                route = "${Screen.DetailCraftman.route}/{name}/{layanan}/{deskripsi}",
+                arguments = listOf(
+                    navArgument("name") { type = NavType.StringType },
+                    navArgument("layanan") { type = NavType.StringType },
+                    navArgument("deskripsi") { type = NavType.StringType }
+                )
+            ) {
                 val name = it.arguments?.getString("name") ?: " "
-                DetailScreen(navHostController = navController, name = name)
+                val layanan = it.arguments?.getString("layanan") ?: " "
+                val deskripsi = it.arguments?.getString("deskripsi") ?: " "
+                DetailScreen(navHostController = navController, name = name, layanan = layanan, deskripsi = deskripsi)
             }
 
             composable(Screen.PesananProses.route) {

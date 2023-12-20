@@ -32,6 +32,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.capstone.craftman.R
 import com.capstone.craftman.response.CraftmanList
@@ -39,7 +40,7 @@ import com.capstone.craftman.response.CraftmanList
 @Composable
 fun ListCraftmanItem(
     craftman: CraftmanList,
-    navigateToDetail: (String) -> Unit,
+    navigateToDetail: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ){
     Card(
@@ -96,7 +97,7 @@ fun ListCraftmanItem(
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Button(
-                    onClick = { navigateToDetail(craftman.nama) },
+                    onClick = { navigateToDetail(craftman.nama, craftman.layanan, craftman.deskripsi) },
                     modifier = modifier.wrapContentSize()
                         .padding(start = 8.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -115,11 +116,11 @@ fun ListCraftmanItem(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewCraftmanitem(){
+@Preview(showBackground = true)
+@Composable
+fun PreviewCraftmanitem(){
 //    ListCraftmanItem(craftman = Craftmans(  name = "John Doe",
 //        photoUrl = R.drawable.ricky_harun, // Ganti dengan drawable yang tersedia
 //        job = "Plumber",
 //        location = "New York" , 3000, 5), navigateToDetail = {})
-//}
+}

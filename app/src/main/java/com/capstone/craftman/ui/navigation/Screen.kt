@@ -11,8 +11,9 @@ sealed class Screen(val route: String) {
     object PesananProses : Screen("pesananProses")
     object HistoryInProfile : Screen("historyInProfile")
     object Profile : Screen("profile")
-    object DetailCraftman : Screen("listCraftman/{name}") {
-        fun createRoute(name: String) = "listCraftman/$name"
+    object DetailCraftman : Screen("listCraftman/{name}/{layanan}/{deskripsi}") {
+        fun createRoute(name: String, layanan: String, deskripsi: String) =
+            "listCraftman/$name/$layanan/$deskripsi"
     }
     object Login : Screen("login")
     object Register : Screen("register")

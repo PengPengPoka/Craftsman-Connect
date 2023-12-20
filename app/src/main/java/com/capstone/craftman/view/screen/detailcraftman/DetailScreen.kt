@@ -22,8 +22,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +31,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -46,7 +43,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.capstone.craftman.R
-import com.capstone.craftman.data.fake.Craftmans
 import com.capstone.craftman.data.injection.Injection
 import com.capstone.craftman.ui.component.ButtonOrder
 import com.capstone.craftman.ui.navigation.Screen
@@ -59,14 +55,14 @@ fun DetailScreen(
     navHostController: NavHostController,
     context: Context = LocalContext.current,
     name: String,
+    layanan : String,
+    deskripsi : String,
     viewModel: DetailViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(context))
     ),
 ) {
-    val craftmans by viewModel.craftsman.observeAsState()
 
     LaunchedEffect(true) {
-        viewModel.getCraftsmanByName(name)
     }
 
     Column {
@@ -120,16 +116,17 @@ fun DetailScreen(
                     clip = true
                 }
         )
-        craftmans?.let { craftsmanData ->
-            containerOne(navHostController, craftsmanData)
-        }
+            containerOne(navHostController, name , layanan, deskripsi)
+
     }
 }
 
 @Composable
 private fun containerOne(
     navController: NavHostController,
-    craftman: Craftmans
+    name : String,
+    layanan : String,
+    deskripsi : String
 ) {
 
     Column {
@@ -139,7 +136,7 @@ private fun containerOne(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Image(
-                painter = painterResource(id = craftman.photoUrl),
+                painter = painterResource(id = R.drawable.ricky_harun),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -152,13 +149,13 @@ private fun containerOne(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = craftman.name,
+                    text = name,
                     style = TextStyle(fontFamily = FontFamily(Font(R.font.semibold))),
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Text(
-                    text = craftman.job,
+                    text = layanan,
                     style = TextStyle(fontFamily = FontFamily(Font(R.font.regular))),
                     fontWeight = FontWeight.Thin,
                 )
@@ -174,7 +171,7 @@ private fun containerOne(
         )
 
         Text(
-            text = stringResource(id = R.string.lorem),
+            text = deskripsi,
             style = TextStyle(fontFamily = FontFamily(Font(R.font.regular)), fontSize = 16.sp),
             fontWeight = FontWeight.Thin,
             modifier = Modifier.padding(start = 18.dp, top = 8.dp)
@@ -191,7 +188,7 @@ private fun containerOne(
             contentAlignment = Alignment.Center
 
         ) {
-            ButtonOrder(price = craftman.price, onClick = {
+            ButtonOrder(price = 200_000, onClick = {
                 navController.navigate(Screen.PesananProses.route){
                     popUpTo(Screen.Home.route)
                 }
@@ -205,5 +202,5 @@ private fun containerOne(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDetail() {
-    DetailScreen(navHostController = rememberNavController(), name = "Andi")
+    DetailScreen(navHostController = rememberNavController(), name = "Andi", layanan = "Tukang AC", deskripsi = "Andi Adalah tukang AC")
 }

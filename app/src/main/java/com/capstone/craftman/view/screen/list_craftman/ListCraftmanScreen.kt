@@ -51,7 +51,7 @@ import com.capstone.craftman.view.ViewModelFactory
 fun ListCraftmanScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    navigateToDetail: (String) -> Unit,
+    navigateToDetail: (String, String, String) -> Unit,
 ){
     Column {
         TopAppBar(
@@ -114,7 +114,7 @@ private fun Top(navHostController: NavHostController,
                 viewModel: ListCraftmanViewModel = viewModel(
                     factory = ViewModelFactory(Injection.provideRepository(context))
                 ),
-                navigateToDetail: (String) -> Unit,
+                navigateToDetail: (String, String, String) -> Unit,
 ){
     val craftmansList by viewModel.CraftmanList.observeAsState(listOf())
     val tukangList by viewModel.TukangList.observeAsState()

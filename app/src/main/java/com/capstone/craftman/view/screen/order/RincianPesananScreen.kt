@@ -104,7 +104,7 @@ fun RincianPesananProsesScreen(
                 .padding(top = 36.dp)
                 .clip(shape = CircleShape)
         )
-        Text(text = "Ricky Harun", modifier = Modifier.padding(top = 16.dp), style = TextStyle(fontFamily = FontFamily(Font(R.font.semibold)), fontSize = 16.sp ))
+        Text(text = "Andi", modifier = Modifier.padding(top = 16.dp), style = TextStyle(fontFamily = FontFamily(Font(R.font.semibold)), fontSize = 16.sp ))
         Text(text = "Tukang Ac", modifier = Modifier.padding(top = 8.dp), style = TextStyle(fontFamily = FontFamily(Font(R.font.regular)), fontSize = 16.sp ))
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.kirim_pesan)),
@@ -127,7 +127,7 @@ fun RincianPesananProsesScreen(
             contentAlignment = Alignment.Center
 
         ) {
-            ButtonBayar(price = 300000, onClick = { navController.navigate(Screen.Feedback.route)})
+            ButtonBayar(price = 205000, onClick = { navController.navigate(Screen.Feedback.route)})
         }
     }
 }
