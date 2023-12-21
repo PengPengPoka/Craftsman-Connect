@@ -115,6 +115,6 @@ fun HomeContent(
                 color = Color(0xFF000000),
             )
         )
-        ServiceRow(listService = dummyService)
+        ServiceRow(listService = dummyService.sortedByDescending { it.title })
     }
 }

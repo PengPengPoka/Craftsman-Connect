@@ -2,7 +2,11 @@ package com.capstone.craftman.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -17,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import com.capstone.craftman.R
 import com.capstone.craftman.ui.theme.CraftmanTheme
 import kotlinx.coroutines.delay
@@ -37,6 +42,7 @@ class SplashActivity : ComponentActivity() {
                 }
             }
         }
+        hideSystemUI()
     }
 
     @Composable
@@ -63,5 +69,24 @@ class SplashActivity : ComponentActivity() {
         }
     }
 
+
+    fun hideSystemUI() {
+
+        //Hides the ugly action bar at the top
+        actionBar?.hide()
+
+        //Hide the status bars
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.insetsController?.apply {
+                hide(WindowInsets.Type.statusBars())
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        }
+    }
 
 }
