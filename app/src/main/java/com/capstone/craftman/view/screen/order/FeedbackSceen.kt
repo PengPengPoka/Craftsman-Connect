@@ -72,7 +72,6 @@ fun FeedbackScreen(
     var feedback by remember { mutableStateOf("") }
     val scrollStateVertical = rememberScrollState()
     val focusManager = LocalFocusManager.current
-    val snackbarHostState = remember { SnackbarHostState() }
 
     Column(modifier = Modifier
         .fillMaxSize()

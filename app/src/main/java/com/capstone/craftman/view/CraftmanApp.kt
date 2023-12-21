@@ -1,10 +1,17 @@
 package com.capstone.craftman.view
 
+import android.view.WindowManager
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -36,6 +43,7 @@ fun CraftmanApp(
     val currentRoute = navBackStackEntry?.destination?.route
 
 
+
     Scaffold(
         bottomBar = {
             if (currentRoute != Screen.Profile.route &&
@@ -50,6 +58,8 @@ fun CraftmanApp(
                 BottomBar(navController)
             }
         },
+
+
         modifier = modifier
     ) { innerPadding ->
         NavHost(
@@ -100,7 +110,9 @@ fun CraftmanApp(
                 RincianPesananSelesaiScreen(navController = navController, rating = 4)
             }
             composable(Screen.Feedback.route) {
-                FeedbackScreen(navController = navController)
+                SetWindowSoftInputMode(navController = navController) {
+                    FeedbackScreen(navController = navController)
+                }
             }
             composable(Screen.ChatMessage.route) {
                 ChatMessageScreen(navController = navController,   navigateBack ={
@@ -111,4 +123,23 @@ fun CraftmanApp(
 
     }
 
+}
+
+@Composable
+fun SetWindowSoftInputMode(
+    navController: NavHostController,
+    content: @Composable () -> Unit
+) {
+    var previousWindowSoftInputMode by rememberSaveable { mutableStateOf(0) }
+    val context = LocalContext.current
+
+    DisposableEffect(Unit) {
+        previousWindowSoftInputMode = (context as ComponentActivity).window.attributes.softInputMode
+        context.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        onDispose {
+            context.window.setSoftInputMode(previousWindowSoftInputMode)
+        }
+    }
+
+    content()
 }
