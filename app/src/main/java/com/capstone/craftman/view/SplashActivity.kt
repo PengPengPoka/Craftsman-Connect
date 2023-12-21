@@ -2,17 +2,13 @@ package com.capstone.craftman.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -60,10 +56,7 @@ class SplashActivity : ComponentActivity() {
             Image(
                 modifier = modifier
                     .align(Alignment.Center)
-                    .fillMaxSize()
-//                    .size(220.dp)
-//                    .padding(paddingValues = PaddingValues(50.dp)),
-                        ,
+                    .fillMaxSize(),
                 painter = painterResource(R.drawable.craftman_logo),
                 contentDescription = "Splash Screen Logo"
             )
