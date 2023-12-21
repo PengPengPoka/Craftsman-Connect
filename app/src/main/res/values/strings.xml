@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Craftman For Handyman</string>
+    <string name="to_register">Tidak punya akun?</string>
+    <string name="register">Daftar</string>
+    <string name="to_login">Sudah punya akun?</string>
+    <string name="login">Login\n</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_chat">Chat</string>
+    <string name="menu_histoy_order">Pesanan</string>
+    <string name="price">Rp. %d</string>
+    <string name="placeholder_search">Temukan layanan</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
+    <string name="kirim_pesan">Kirim pesan</string>
+    <string name="menu_profil">Profil</string>
+</resources>
