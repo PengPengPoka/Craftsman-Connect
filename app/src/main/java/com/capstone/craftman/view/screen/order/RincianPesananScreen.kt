@@ -109,7 +109,7 @@ fun RincianPesananProsesScreen(
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.kirim_pesan)),
             onClick = {
-                // Aksi ke chat
+                navController.navigate(Screen.ChatMessage.route)
             },
             style = TextStyle(
                 fontSize = 16.sp,

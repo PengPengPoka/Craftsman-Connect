@@ -124,6 +124,16 @@ private fun Top(navHostController: NavHostController,
 
                 Row(horizontalArrangement = Arrangement.SpaceEvenly,modifier = Modifier
                     .fillMaxWidth()
+                    .padding(vertical = 8.dp)) {
+                    Text(text = "Alamat", style = TextStyle(
+                        fontFamily = FontFamily(
+                            Font(R.font.semibold))))
+
+                    Text(text = "Jln Serdadu, Macanan,\n Sleman Yogyakarta", fontSize = 12.sp)
+                }
+
+                Row(horizontalArrangement = Arrangement.SpaceEvenly,modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 4.dp)) {
                     Text(modifier = Modifier.align(Alignment.CenterVertically),
                         text = "Riwayat Pesanan", style = TextStyle(

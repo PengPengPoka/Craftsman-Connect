@@ -29,6 +29,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
@@ -70,9 +72,13 @@ fun FeedbackScreen(
     var feedback by remember { mutableStateOf("") }
     val scrollStateVertical = rememberScrollState()
     val focusManager = LocalFocusManager.current
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    Column(modifier = Modifier.fillMaxSize() .verticalScroll(scrollStateVertical)
-        .navigationBarsPadding().imePadding()
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(scrollStateVertical)
+        .navigationBarsPadding()
+        .imePadding()
         .pointerInput(Unit) {
             detectTapGestures(onTap = {
                 focusManager.clearFocus()
@@ -117,7 +123,8 @@ fun FeedbackScreen(
             value = feedback,
             onValueChange = { feedback = it },
             label = { Text("Masukkan masukan Anda di sini") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .fillMaxHeight()
                 .padding(16.dp)
                 .weight(1f),
@@ -133,17 +140,23 @@ fun FeedbackScreen(
             contentAlignment = Alignment.Center
 
         ) {
-            Button(onClick = { /* Handle Submit click */ },
+            Button(onClick = { navController.navigate(Screen.Home.route){
+                popUpTo(0)
+            } },
                 shape = RectangleShape,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = colorResource(id = R.color.brown),),
-                        modifier = Modifier.fillMaxWidth().padding(16.dp).clip(shape = RoundedCornerShape(10.dp))) {
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .clip(shape = RoundedCornerShape(10.dp))) {
                 Text("Kirim")
             }
         }
 
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -203,7 +216,9 @@ fun RatingBar(value: Int, onValueChange: (Int) -> Unit) {
                 painter = if (value >= i) painterResource(R.drawable.ic_filled_star) else painterResource(R.drawable.ic_outline_star),
                 tint = colorResource(id = R.color.gold),
                 contentDescription = null,
-                modifier = Modifier.clickable { onValueChange(i) }.size(36.dp)
+                modifier = Modifier
+                    .clickable { onValueChange(i) }
+                    .size(36.dp)
             )
         }
     }
