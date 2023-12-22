@@ -22,3 +22,7 @@ API that has been available and taken :
 1. Login
 2. Register
 3. List Craftman
+
+Build Apk :
+
+https://github.com/PengPengPoka/Craftsman-Connect/blob/craftmanApp/app/Craftman%20App.apk
