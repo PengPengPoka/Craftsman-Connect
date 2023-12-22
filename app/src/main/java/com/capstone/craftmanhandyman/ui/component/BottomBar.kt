@@ -39,8 +39,8 @@ fun BottomBar(
 
         val navigationItems = listOf(
             NavigationItem(
-                title = stringResource(R.string.menu_home),
-                icon = ImageBitmap.imageResource(id = R.drawable.ic_home),
+                title = stringResource(R.string.menu_histoy_order),
+                icon = ImageBitmap.imageResource(id = R.drawable.ic_history_order),
                 screen = Screen.History
             ),
             NavigationItem(

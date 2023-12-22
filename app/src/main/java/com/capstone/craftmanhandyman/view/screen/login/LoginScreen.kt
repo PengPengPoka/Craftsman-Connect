@@ -155,7 +155,7 @@ fun LoginContent(
                 Text(
                     modifier = Modifier
                         .padding(bottom = 28.dp),
-                    text = "Jembatan yang menghubungkan Anda \ndengan teknisi dan pekerja terampil",
+                    text = "Jembatan yang menghubungkan Anda dengan para pengguna yang membutuhkan layanan anda",
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontFamily = FontFamily(Font(R.font.regular)),

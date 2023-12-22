@@ -9,4 +9,6 @@ val chatMessages = listOf(
     Message("3-5 hari ya kak", true),
     Message("Bisa lebih cepat?", false),
     Message("bisa kak, kami usahakan ya", true),
+    Message("Ditunggu ya kak", false),
+    Message("Oke kak siap", true),
 )

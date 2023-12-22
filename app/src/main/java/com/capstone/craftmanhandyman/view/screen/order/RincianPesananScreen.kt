@@ -1,5 +1,7 @@
 package com.capstone.craftmanhandyman.view.screen.order
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -87,7 +90,10 @@ fun RincianPesananSelesaiScreen(
 @Composable
 fun RincianPesananProsesScreen(
     navController: NavHostController,
+    context: Context = LocalContext.current,
 ){
+
+
     Column( modifier = Modifier
         .fillMaxWidth(),
     verticalArrangement = Arrangement.Center,
@@ -127,8 +133,10 @@ fun RincianPesananProsesScreen(
             contentAlignment = Alignment.Center
 
         ) {
-            ButtonBayar(onClick = { navController.navigate(Screen.History.route)})
+            ButtonBayar(onClick = { navController.navigate(Screen.History.route)
+                Toast.makeText(context, "Pesanan telah diselesaikan", Toast.LENGTH_SHORT).show()})
         }
+
     }
 }
 

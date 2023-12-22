@@ -146,7 +146,7 @@ fun RegisterContent(
                 Text(
                     modifier = Modifier
                         .padding(bottom = 16.dp),
-                    text = "Daftarkan diri Anda sekarang dan temukan \nteknisi yang tepat untuk pekerjaan Anda. ",
+                    text = "Daftarkan diri Anda sekarang dan temukan mereka yang membutuhkan pekerjaan Anda. ",
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontFamily = FontFamily(Font(R.font.regular)),

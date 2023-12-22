@@ -92,7 +92,7 @@ private fun Top(navHostController: NavHostController,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(
-                    painter = painterResource(R.drawable.profile_picture),
+                    painter = painterResource(R.drawable.ricky_harun),
                     contentDescription = "Foto profil",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -104,7 +104,7 @@ private fun Top(navHostController: NavHostController,
                     fontFamily = FontFamily(
                         Font(R.font.semibold))))
 
-                Text(text = "08743242345", style = TextStyle(
+                Text(text = "081374234", style = TextStyle(
                     fontFamily = FontFamily(
                         Font(R.font.semibold))))
 
@@ -118,7 +118,7 @@ private fun Top(navHostController: NavHostController,
                         fontFamily = FontFamily(
                             Font(R.font.semibold))))
 
-                    Text(text = "jenklyn@gmail.com", style = TextStyle(
+                    Text(text = "akbar@gmail.com", style = TextStyle(
                         fontFamily = FontFamily(
                             Font(R.font.semibold))))
                 }
