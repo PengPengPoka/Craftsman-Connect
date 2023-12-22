@@ -1,14 +1,18 @@
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
+import pickle
 
-data_tukang = pd.read_csv('data/data_tukang.csv')
-data_user = pd.read_csv('data/data_user.csv')
+data_tukang = pd.read_csv('C:\\Users\\OMEN\\Repositories\\Craftsman-Connect\\data\\data_tukang.csv')
+data_user = pd.read_csv('C:\\Users\\OMEN\\Repositories\\Craftsman-Connect\\data\\data_user.csv')
 
 tf_user = data_user.loc[:, ['Nama','Daerah','Order', 'Rating', 'Keterangan', 'Timestamp']]
 tf_user = tf_user.rename(columns={'Nama': 'Nama User', 'Rating': 'User Rating'})
 
 tf_tukang = data_tukang.loc[:, ['Nama','Daerah','Tempat Pekerjaan','Keahlian', 'Harga', 'Rating', 'Pengrating']]
 tf_tukang = tf_tukang.rename(columns={'Nama': 'Nama Tukang', 'Tempat Pekerjaan': 'Order','Rating': 'Rating Tukang', 'Pengrating': 'Jumlah Rating'})
+
+def get_model(model):
+    pickle.dump(model, open("recommendation.pkl","wb"))
 
 def cari_tukang(nama_user, kebutuhan, tf_user, tf_tukang):
     # Mengambil daerah dari data berdasarkan nama pengguna
@@ -27,10 +31,12 @@ def cari_tukang(nama_user, kebutuhan, tf_user, tf_tukang):
     knn = NearestNeighbors(n_neighbors=len(matching_jobs))  # Jumlah tetangga = jumlah tukang yang cocok
 
     # Latih model dengan fitur yang dipilih
-    knn.fit(features)
+    model = knn.fit(features)
 
     # Mendapatkan indeks tukang yang cocok
     _, indices = knn.kneighbors(features)
+
+    get_model(model)
 
     # Menampilkan hasil berdasarkan peringkat dari model
     hasil_terurut = matching_jobs.iloc[indices[0]]  # Menggunakan indeks dari model KNN
